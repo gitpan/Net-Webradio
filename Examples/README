@@ -1,0 +1,8 @@
+there's only one example at the moment:
+
+FileWriter
+----------
+Simply start it (after module-installation) with 'perl client_webradio.pl'.
+It receives some stations that are defined in the 'client_webradio.pl' file,
+and saves the mp3-data (with IDv1-Tags). 
+

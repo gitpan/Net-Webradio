@@ -1,0 +1,147 @@
+INSTALLATION
+
+perl Makefile.PL
+make
+make test
+make install
+
+If you are on a windows box you should use 'nmake' rather than 'make'.
+
+NAME
+    Net::Webradio - receive one or more webradio-stations
+
+SYNOPSIS
+      use Net::Webradio
+      my $receiver = Net::Webradio->new();
+
+      my $station = Net::Webradio::Station::Shoutcast->new();
+      $station->host( $server->[0] );
+      $station->port( $server->[1] );
+      $receiver->add_station( $station ) if  $station->connect( $server->[0], $server->[1] ) ;
+  
+      while ($receiver->number_of_stations) {
+         $receiver->receive();
+      }
+
+DESCRIPTION
+    Net::Webradio is a framework for receiving one or more
+    webradio-stations. All classes are implemented with the so-called
+    "template-pattern".
+
+    The module is a multiplexer for one or more
+    Net::Webradio::Station-objects (eg Net::Webradio::Station::Shoutcast).
+
+USAGE
+    To change the handling of certain events (timeout, disconnect) you have
+    to overload some methods. You can also change/overload the
+    station-object to change the behaviour of the system.
+
+    You can find one example in the Example/ directory.
+
+METHODS
+  add_station
+
+     Usage     : $receiver->add_station( $station )
+     Purpose   :
+        Adds a already connected station for receiving.
+     Returns   : nothing
+     Argument  : station-object
+     Throws    : nothing
+     See Also   : remove_station
+
+  remove_station
+
+     Usage     : $receiver->remove_station( $station )
+     Purpose   :
+        Removes a station.
+     Returns   : nothing
+     Argument  : station-object
+     Throws    : nothing
+
+  number_of_stations
+
+     Usage     : $receiver->number_of_stations(  )
+     Purpose   :
+        Returns the number of stations.
+     Returns   : number of stations
+     Argument  : nothing
+     Throws    : nothing
+     See Also   : 
+
+  receive
+
+     Usage     : $receiver->receive(  )
+     Purpose   :
+        Receives next chunk from all stations.
+        You have to call it in a loop.
+     Returns   : nothing
+     Argument  : nothing
+     Throws    : nothing
+     See Also   : 
+
+  timeout
+
+     Usage     : $receiver->timeout( 30 )
+     Purpose   :
+        Sets the timeout value for all stations.
+     Returns   : nothing
+     Argument  : timeout in seconds
+     Throws    : nothing
+ 
+     See Also   : timeout_all_stations
+
+OVERLOADABLE METHODS
+    The following functions are overloadable:
+
+  init
+
+     Usage     : init is called from new
+     Purpose   :
+        Initializes some values, create Poll-Object.
+        Always call SUPER::init if you overload this method.
+     Returns   : nothing
+     Argument  : nothing
+     Throws    : nothing
+     See Also   : 
+
+  timeout_all_stations
+
+     Usage     : timeout_all_stations is called if there is a network-timeout.
+     Purpose   :
+        overload it :)
+        You can change the timeout-time with the 'timeout'-method.
+     Returns   : nothing
+     Argument  : nothing
+     Throws    : nothing
+     See Also   : timeout
+
+  error_in_station
+
+     Usage     : error_in_station is called if a station returns an error.
+     Purpose   :
+        overload it :)
+        The default implementation removes the station from the receiver.
+     Returns   : nothing
+     Argument  : nothing
+     Throws    : nothing
+     See Also   : timeout
+
+BUGS
+    Doesn't work under Win32... please send patches :-)
+
+SUPPORT
+AUTHOR
+            Nathanael Obermayer
+            CPAN ID: nathanael
+            natom-pause@smi2le.net
+
+COPYRIGHT
+    This program is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
+    The full text of the license can be found in the LICENSE file included
+    with this module.
+
+SEE ALSO
+    perl(1).
+

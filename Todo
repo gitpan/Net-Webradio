@@ -1,0 +1,6 @@
+TODO list for Perl module Net::Webradio
+
+- doesn't work under Win32
+- more Protocols (Live356 ??)
+- better documentation :-)
+- make it work with metadata-free stations
